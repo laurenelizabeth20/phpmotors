@@ -55,17 +55,18 @@ h1 {
 }
 
 h3 {
-    font-size: 18px;
+    font-size: 15px;
+    font-weight: bolder;
 }
 
 .blurb p {
-    font-size: 15px;
+    font-size: 10px;
 }
 
 #own img {
+    display: block;
     margin:120px auto 0px auto;
     width: 120px;
-    text-align:center;
 }
 
 h2 {
@@ -165,11 +166,13 @@ footer {
     }
 
     h3 {
-        font-size: 16px;
+        font-size: 25px;
     }
 
     .blurb p {
-        font-size: 13px;
+        font-size: 23px;
+        line-height: 12px;
+        font-weight: bold;
     }
 
     .blurb {
@@ -181,7 +184,8 @@ footer {
     }
 
     #own img {
-        margin: 20px auto;
+        margin: 20px 0px;
+        width: 200px;
     }
 
     .upgrade-review {

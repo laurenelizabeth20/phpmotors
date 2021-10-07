@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Home | PHP Motors</title>
-        <link rel="stylesheet" title="CSS" media="screen" href="home.css">
+        <link rel="stylesheet" title="CSS" media="screen" href="style-home.css">
     </head>
     <body>
         <div class="content">
@@ -17,7 +17,7 @@
                     <p>Superman doors</p>
                     <p>Fuzzy dice!</p>
                     <div id="own">
-                        <button>Own Today</button>
+                        <img src="images/site/own_today.png" alt="Own Today">
                     </div>
                 </div>
                 <div class="upgrade-review">
