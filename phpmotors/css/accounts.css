@@ -4,45 +4,82 @@
     width: 100%;
 }
 
-header {
+.header {
     display: grid;
     grid-template-columns: auto auto;
     width: 100%;
 }
 
-header img {
+.header img {
     width: 70%;
     margin: 15px;
 }
 
-.account {
+header a {
     font-family: 'Rajdhani', sans-serif;
     text-decoration: none;
     color: #3a3a3a;
-    font-size: 200%;
+    font-size: 120%;
     grid-column: 2;
     text-align: right;
+    float: right;
     padding: 30px;
     font-weight: bold;
 }
 
 nav {
     background-color: #3a3a3a;
-    padding: 25px;
+    padding: 5px 0px;
+    margin: 0px;
 }
 
-nav a {
+nav ul {
+    display: flex;
+    padding: 0px 10px;
+}
+
+nav a, nav li {
     color: white;
     text-decoration: none;
     font-size: 13px;
-    padding: 5px;
+    padding: 10px 2px;
     font-family: 'Orbitron', sans-serif;
+    list-style-type: none;
 }
 
 h1 {
     font-size: 25px;
     font-family: 'Orbitron', sans-serif;
 }
+
+form {
+    width:200px;
+	margin: 0 auto;
+	padding: 12px 25px;
+    border: 3px solid #868686;
+    border-radius: 8px;
+    background-color: #224058;
+    color: white;
+    line-height: 25px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+form a {
+    color: white;
+}
+
+button {
+    margin: 15px;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+input:placeholder-shown {
+    border-color: red;
+  }
 
 hr {
     border-top: 4px solid;
@@ -57,7 +94,7 @@ footer {
 
 @media screen and (min-width: 740px) {
     body {
-        background-image: url(images/site/small_check.jpg);
+        background-image: url(../images/site/small_check.jpg);
     }
     
     .content {
@@ -68,16 +105,21 @@ footer {
         border: 5px solid #4c96d7;
     }
 
-    header img {
+    .header img {
         width: 200px;
     }
 
-    .account {
+    .header a {
         font-size: 20px;
+    }
+
+    nav {
+        padding: 5px;
     }
 
     nav a {
         font-size: 20px;
+        padding: 5px;
     }
 
     nav a:hover {
@@ -85,5 +127,9 @@ footer {
         padding-top: 35px;
         padding-bottom: 35px;
         color: black;
+    }
+
+    form {
+        width: 400px;
     }
 }

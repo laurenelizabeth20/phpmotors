@@ -3,12 +3,17 @@
     <head>
         <meta charset="UTF-8">
         <title>Home | PHP Motors</title>
-        <link rel="stylesheet" title="CSS" media="screen" href="style-home.css">
+        <link rel="stylesheet" title="CSS" media="screen" href="css/home.css">
     </head>
     <body>
         <div class="content">
-            <?php require_once 'header.php';?>
-            <?php require_once 'nav.php';?>
+            <div class='header'>
+                <img src="images/site/logo.png" alt="PHP Motors Logo">
+                <?php require_once 'view/header.php';?>
+            </div>
+            <nav>
+                <?php echo $navList; ?>
+            </nav>
             <main>
                 <h1>Welcome to PHP Motors!</h1>
                 <div class="blurb">

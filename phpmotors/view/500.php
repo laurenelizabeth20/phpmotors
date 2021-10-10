@@ -3,11 +3,14 @@
     <head>
         <meta charset="UTF-8">
         <title>Error | PHP Motors</title>
-        <link rel="stylesheet" title="CSS" media="screen" href="../template.css">
+        <link rel="stylesheet" title="CSS" media="screen" href="../css/template.css">
     </head>
     <body>
         <div class="content">
-            <?php require_once '../header.php';?>
+            <div class='header'>
+                <img src="../images/site/logo.png" alt="PHP Motors Logo">
+                <?php require_once '../view/header.php';?>
+            </div>
             <?php require_once '../nav.php';?>
             <main>
                 <h1>Server Error</h1>

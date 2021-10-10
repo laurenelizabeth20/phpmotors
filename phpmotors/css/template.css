@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&family=Rajdhani:wght@300&display=swap');
+
+.content {
+    width: 100%;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 100%;
+}
+
+.header img {
+    width: 70%;
+    margin: 15px;
+}
+
+header a {
+    font-family: 'Rajdhani', sans-serif;
+    text-decoration: none;
+    color: #3a3a3a;
+    font-size: 120%;
+    grid-column: 2;
+    text-align: right;
+    float: right;
+    padding: 30px;
+    font-weight: bold;
+}
+
+nav {
+    background-color: #3a3a3a;
+    padding: 5px 0px;
+    margin: 0px;
+}
+
+nav ul {
+    display: flex;
+    padding: 0px 10px;
+}
+
+nav a, nav li {
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 10px 2px;
+    font-family: 'Orbitron', sans-serif;
+    list-style-type: none;
+}
+
+h1 {
+    font-size: 25px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+hr {
+    border-top: 4px solid;
+}
+
+footer {
+    font-family: 'Rajdhani', sans-serif;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+@media screen and (min-width: 740px) {
+    body {
+        background-image: url(../images/site/small_check.jpg);
+    }
+    
+    .content {
+        width: 75%;
+        margin: 20px auto;
+        background-color: white;
+        border-radius: 8px;
+        border: 5px solid #4c96d7;
+    }
+
+    .header img {
+        width: 200px;
+    }
+
+    .header a {
+        font-size: 20px;
+    }
+
+    nav a {
+        font-size: 20px;
+    }
+
+    nav a:hover {
+        background-color: #4c96d7;
+        padding-top: 35px;
+        padding-bottom: 35px;
+        color: black;
+    }
+}
