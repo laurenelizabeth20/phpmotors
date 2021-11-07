@@ -22,7 +22,6 @@ header a {
     font-size: 120%;
     grid-column: 2;
     text-align: right;
-    float: right;
     padding: 30px;
     font-weight: bold;
 }

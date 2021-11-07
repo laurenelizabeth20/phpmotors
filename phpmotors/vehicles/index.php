@@ -1,5 +1,8 @@
 <?php
 
+// Create or access a Session
+session_start();
+
 // Get the database connection file
 require_once '../library/connections.php';
 // Get the PHP Motors model for use as needed
@@ -12,18 +15,12 @@ require_once '../library/functions.php';
 // Get the array of classifications
 $classifications = getClassifications();
 $login = "<a href='/phpmotors/accounts/index.php?action=".urlencode('login')."' title='Login Here'>My Account</a>";
+$logout = "<a href='/phpmotors/index.php?action=".urlencode('logout')."' title='Logout Here'>Logout</a>";
 $addClassification = "<a href='/phpmotors/vehicles/index.php?action=".urlencode('addClassification')."' title='Add Car Classification'>Add Car Classification</a>";
 $addVehicle = "<a href='/phpmotors/vehicles/index.php?action=".urlencode('addVehicle')."' title='Add Vehicle'>Add Vehicle</a>";
 
 // Build a navigation bar using the $classifications array
 $navList = buildNav($classifications);
-
-
-//$classificationList = '<select id=classification name="classificationId" required placeholder="Classification">';
-//foreach ($classifications as $classification) {
-//    $classificationList .= "<option value=$classification[classificationId]>$classification[classificationName]</option>";
-//}
-//$classificationList .= '</select>';
 
 // Get the value from the action name - value pair
 $action = filter_input(INPUT_POST, 'action');
@@ -63,7 +60,7 @@ switch ($action){
 
         // Check and report the result
         if($addClassificationOutcome === 1){
-            include '../view/vehicle-management.php';
+            header("Location: http://lvh.me/phpmotors/vehicles/index.php?action=addClassification");
             exit;
         } else {
             $message = "<p>Sorry adding the classification failed. Please try again.</p>";
@@ -105,6 +102,9 @@ switch ($action){
                 exit;
             }
             break;
+    case 'vehicles':
+        include '../view/vehicle-management.php';
+        break;
 
     default:
         include '../view/vehicle-management.php';

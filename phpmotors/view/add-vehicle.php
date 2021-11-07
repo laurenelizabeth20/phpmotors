@@ -12,6 +12,15 @@ foreach ($classifications as $classification) {
 }
 $classificationList .= '</select>';
 
+if ($_SESSION['loggedin'] && $_SESSION['clientData']['clientLevel'] > 1) {
+
+}
+else{
+    header("Location: http://lvh.me/phpmotors/");
+    exit;
+}
+?>
+
 ?><!DOCTYPE html>
 <html lang="en">
     <head>
