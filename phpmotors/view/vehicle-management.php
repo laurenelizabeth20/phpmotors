@@ -6,6 +6,9 @@
         header("Location: http://lvh.me/phpmotors/");
         exit;
     }
+    if (isset($_SESSION['message'])) {
+        $message = $_SESSION['message'];
+       }
 ?><!DOCTYPE html>
 <html lang="en">
     <head>
@@ -28,8 +31,24 @@
                     <?php echo $addClassification; ?>
                     <?php echo $addVehicle; ?>
                 </div>
+                <?php if (isset($message)) { 
+                    echo $message; 
+                } ?>
+                <?php
+                if (isset($classificationList)) { 
+                    echo '<h2>Vehicles By Classification</h2>'; 
+                    echo '<p>Choose a classification to see those vehicles</p>'; 
+                    echo $classificationList; 
+                }
+                ?>
+                <noscript>
+                    <p><strong>JavaScript Must Be Enabled to Use this Page.</strong></p>
+                </noscript>
+                <table id="inventoryDisplay"></table>
             </main>
             <?php require_once '../footer.php';?>
         </div>
     </body>
+    <script src="../js/inventory.js"></script>
 </html>
+<?php unset($_SESSION['message']); ?>

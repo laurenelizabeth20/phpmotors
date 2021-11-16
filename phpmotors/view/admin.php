@@ -19,17 +19,22 @@
             <nav>
                 <?php echo $navList; ?>
             </nav>
+            <?php
+            if (isset($_SESSION['message'])) {
+                echo $_SESSION['message'];
+            }?>
             <main class='adminInfo'>
                 <?php
-                echo $_SESSION['clientData']['clientFirstname'], " ", $_SESSION['clientData']['clientLastname'],
-                "</h1>
-                <ul>
+                echo "<h2>", $_SESSION['clientData']['clientFirstname'], " ", $_SESSION['clientData']['clientLastname'], ", you are logged in</h2>";
+                echo "<ul>
                 <li> First name: ",  $_SESSION['clientData']['clientFirstname'], "</li>
                 <li> Last name: ", $_SESSION['clientData']['clientLastname'], "</li>
                 <li> Email address: ", $_SESSION['clientData']['clientEmail'], "</li>
-                </ul>";
+                </ul>
+                <p><a href='/phpmotors/accounts/index.php?action=".urlencode('account-update')."' title='Account Update Page'>Account Update Page</a></p>";
                 if($_SESSION['clientData']['clientLevel'] > 1){
-                    echo "<p><a href='/phpmotors/vehicles/index.php?action=".urlencode('vehicles')."' title='Vehicle Management Page'>Vehicle Management Page</a></p>";
+                    echo "<h3>Vehicles Management</h3>
+                    <p>Use this link to administer inventory: <a href='/phpmotors/vehicles/index.php?action=".urlencode('vehicles')."' title='Vehicle Management Page'>Vehicle Management Page</a></p>";
                 }?>
             </main>
             <?php require_once '../footer.php';?>

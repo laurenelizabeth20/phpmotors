@@ -46,7 +46,7 @@ nav a, nav li {
     list-style-type: none;
 }
 
-h1 {
+h1, h2 {
     font-size: 25px;
     font-family: 'Orbitron', sans-serif;
 }
@@ -65,6 +65,16 @@ form, .vehicleLinks, .vehicleLinks a:visited {
 
 form a {
     color: white;
+}
+
+table {
+    width:200px;
+	margin: 0 auto;
+	padding: 12px 25px;
+    border-radius: 8px;
+    color: black;
+    line-height: 25px;
+    font-family: 'Orbitron', sans-serif;
 }
 
 button {

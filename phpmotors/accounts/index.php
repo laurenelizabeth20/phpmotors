@@ -129,6 +129,84 @@ switch ($action){
             exit;
             break;
 
+        case 'account-update':
+            include '../view/client-update.php';
+            break;
+
+        case 'updateClient':
+            $clientFirstname = filter_input(INPUT_POST, 'clientFirstname', FILTER_SANITIZE_STRING);
+            $clientLastname = filter_input(INPUT_POST, 'clientLastname', FILTER_SANITIZE_STRING);
+            $clientEmail = filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_STRING);
+            $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT);
+            $clientEmail = checkEmail($clientEmail);
+            $existingEmail = checkExistingEmail($clientEmail);
+
+            if ($clientEmail != $_SESSION['clientData']['clientEmail']) {
+                if($existingEmail){
+                    $message = '<p class="notice">That email address already exists. Do you want to login instead?</p>';
+                    include '../view/login.php';
+                    exit;
+                   }
+            }
+                
+            if (empty($clientFirstname) || empty($clientLastname) || empty($clientEmail)) {
+                $message = '<p>Please fill all fields!</p>';
+                include '../view/client-update.php';
+                exit;
+            }
+            
+            $updateResult = updateClient($clientFirstname, $clientLastname, $clientEmail, $clientId);
+
+            $clientData = getClientById($_SESSION['clientData']['clientId']);
+            array_pop($clientData);
+            $_SESSION['clientData'] = $clientData;
+
+            if ($updateResult ===1) {
+                $message = "<p class='notice'>Congratulations, your account was successfully updated.</p>";
+                $_SESSION['message'] = $message;
+                header('location: /phpmotors/accounts/');
+                exit;
+            } else {
+                $message = "<p class='notice'>Error. your account was not updated.</p>";
+                include '../view/client-update.php';
+                exit;
+            }
+
+            break;
+
+            case 'changePassword':
+                $clientPassword = filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_STRING);
+                $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT);
+                $passwordCheck = checkPassword($clientPassword);
+                    
+                if (!$passwordCheck) {
+                    $passMessage = '<p>Passwords must be at least 8 characters and contain at least 1 number, 1 capital letter and 1 special character!</p>';
+                    include '../view/client-update.php';
+                    exit;
+                }
+                if (empty($passwordCheck)) {
+                    $passMessage = '<p>Please fill all fields!</p>';
+                    include '../view/client-update.php';
+                    exit;
+                }
+
+                $hashedPassword = password_hash($clientPassword, PASSWORD_DEFAULT);
+                
+                $updateResult = updatePassword($hashedPassword, $clientId);
+                if ($updateResult ===1) {
+                    $message = "<p class='notice'>Congratulations, your password was successfully updated.</p>";
+                    $_SESSION['message'] = $message;
+                    header('location: /phpmotors/accounts/');
+                    exit;
+                } else {
+                    $message = "<p class='notice'>Error. your password was not updated.</p>";
+                    $_SESSION['message'] = $message;
+                    header('location: /phpmotors/accounts/');
+                    exit;
+                }
+                
+                break;
+
         default:
             include '../view/admin.php';
             break;
