@@ -100,9 +100,9 @@ function updateVehicle($invMake, $invModel, $invDescription, $invImage, $invThum
     $rowsChanged = $stmt->rowCount();
     $stmt->closeCursor();
     return $rowsChanged;
-  }
+}
 
-  function deleteVehicle($invId) {
+function deleteVehicle($invId) {
     $db = phpmotorsConnect();
     $sql = 'DELETE FROM inventory WHERE invId = :invId';
     $stmt = $db->prepare($sql);
@@ -111,5 +111,29 @@ function updateVehicle($invMake, $invModel, $invDescription, $invImage, $invThum
     $rowsChanged = $stmt->rowCount();
     $stmt->closeCursor();
     return $rowsChanged;
-   }
+}
+
+function getVehiclesByClassification($classificationName){
+    $db = phpmotorsConnect();
+    $sql = 'SELECT inventory.invId, inventory.invMake, inventory.invModel, inventory.invDescription, inventory.invImage, inventory.invThumbnail, 
+    inventory.invStock, inventory.invColor, FORMAT(inventory.invPrice, 2, "en_us") AS invPrice, carclassification.classificationName FROM inventory JOIN carclassification ON inventory.classificationId = carclassification.classificationId WHERE classificationName = :classificationName';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':classificationName', $classificationName, PDO::PARAM_STR);
+    $stmt->execute();
+    $vehicles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $vehicles;
+}
+
+function getVehicleById($invId){
+    $db = phpmotorsConnect();
+    $sql = 'SELECT inventory.invId, inventory.invMake, inventory.invModel, inventory.invDescription, inventory.invImage, inventory.invThumbnail, 
+    inventory.invStock, inventory.invColor, CONCAT("$", FORMAT(inventory.invPrice, 2, "en_us")) AS invPrice, carclassification.classificationName FROM inventory JOIN carclassification ON inventory.classificationId = carclassification.classificationId WHERE inventory.invId = :invId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+    $stmt->execute();
+    $vehicleInfo = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $vehicleInfo;
+}
 ?>

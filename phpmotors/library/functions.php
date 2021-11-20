@@ -16,10 +16,11 @@ function checkPassword($clientPassword){
 //build the navigation list using the classification array
 function buildNav($classifications){
     $navList = '<ul>';
-    $navList .= "<li><a href='/phpmotors/index.php' title='View the PHP Motors home page'>Home</a></li>";
+    $navList .= "<li><a href='/phpmotors/' title='View the PHP Motors home page'>Home</a></li>";
     foreach ($classifications as $classification) {
-        $navList .= "<li><a href='/phpmotors/index.php?action=".urlencode($classification['classificationName'])."' title='View our $classification[classificationName] product line'>
-        $classification[classificationName]</a></li>";
+        $navList .= "<li><a href='/phpmotors/vehicles/?action=classification&classificationName="
+        .urlencode($classification['classificationName']).
+        "' title='View our $classification[classificationName] lineup of vehicles'>$classification[classificationName]</a></li>";
     }
     $navList .= '</ul>';
     return $navList;
@@ -34,5 +35,33 @@ function buildClassificationList($classifications){
     } 
     $classificationList .= '</select>'; 
     return $classificationList; 
-   }
+}
+
+function buildVehiclesDisplay($vehicles){
+    $dv = '<ul id="inv-display">';
+    foreach ($vehicles as $vehicle) {
+     $dv .= '<li>';
+     $dv .= "<a href='/phpmotors/vehicles/?action=vehicleInfo&invId="
+     .urlencode($vehicle['invId']).
+     "' title='View $vehicle[invMake] $vehicle[invModel]'><img src='$vehicle[invThumbnail]' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'></a>";
+     $dv .= '<hr>';
+     $dv .= "<a href='/phpmotors/vehicles/?action=vehicleInfo&invId="
+     .urlencode($vehicle['invId']).
+     "' title='View $vehicle[invMake] $vehicle[invModel]'>$vehicle[invMake] $vehicle[invModel]</a>";
+     $dv .= "<span>$$vehicle[invPrice]</span>";
+     $dv .= '</li>';
+    }
+    $dv .= '</ul>';
+    return $dv;
+}
+
+function buildVehicleInfo($vehicleInfo){
+    $dv = "<img src='$vehicleInfo[invImage]' alt='Image of $vehicleInfo[invMake] $vehicleInfo[invModel] on phpmotors.com'>";
+    $dv .= "<p class='stock'><b>In Stock: $vehicleInfo[invStock]</b></p>";
+    $dv .= "<p class='color'><b>Color: $vehicleInfo[invColor]</b></p>";
+    $dv .= "<span><b>Price: $vehicleInfo[invPrice]</b></span>";
+    $dv .= "<p class='description'><b>$vehicleInfo[invDescription]</b></p>";
+    
+    return $dv;
+}
 ?>
