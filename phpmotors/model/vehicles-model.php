@@ -115,8 +115,8 @@ function deleteVehicle($invId) {
 
 function getVehiclesByClassification($classificationName){
     $db = phpmotorsConnect();
-    $sql = 'SELECT inventory.invId, inventory.invMake, inventory.invModel, inventory.invDescription, inventory.invImage, inventory.invThumbnail, 
-    inventory.invStock, inventory.invColor, FORMAT(inventory.invPrice, 2, "en_us") AS invPrice, carclassification.classificationName FROM inventory JOIN carclassification ON inventory.classificationId = carclassification.classificationId WHERE classificationName = :classificationName';
+    $sql = 'SELECT inventory.invId, inventory.invMake, inventory.invModel, inventory.invDescription, imgPath,
+    inventory.invStock, inventory.invColor, CONCAT("$", FORMAT(inventory.invPrice, 2, "en_us")) AS invPrice, carclassification.classificationName FROM inventory JOIN carclassification ON inventory.classificationId = carclassification.classificationId JOIN images ON images.invId = inventory.invId WHERE classificationName = :classificationName AND imgPrimary = 1 AND imgName LIKE "%-tn.jpg"';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':classificationName', $classificationName, PDO::PARAM_STR);
     $stmt->execute();
@@ -127,13 +127,24 @@ function getVehiclesByClassification($classificationName){
 
 function getVehicleById($invId){
     $db = phpmotorsConnect();
-    $sql = 'SELECT inventory.invId, inventory.invMake, inventory.invModel, inventory.invDescription, inventory.invImage, inventory.invThumbnail, 
-    inventory.invStock, inventory.invColor, CONCAT("$", FORMAT(inventory.invPrice, 2, "en_us")) AS invPrice, carclassification.classificationName FROM inventory JOIN carclassification ON inventory.classificationId = carclassification.classificationId WHERE inventory.invId = :invId';
+    $sql = 'SELECT inventory.invId, inventory.invMake, inventory.invModel, inventory.invDescription, imgPath,
+    inventory.invStock, inventory.invColor, CONCAT("$", FORMAT(inventory.invPrice, 2, "en_us")) AS invPrice, carclassification.classificationName FROM inventory JOIN carclassification ON inventory.classificationId = carclassification.classificationId JOIN images ON images.invId = inventory.invId WHERE inventory.invId = :invId AND imgPrimary = 1 AND imgName NOT LIKE "%-tn.jpg"';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
     $stmt->execute();
     $vehicleInfo = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
     return $vehicleInfo;
+}
+
+// Get information for all vehicles
+function getVehicles(){
+	$db = phpmotorsConnect();
+	$sql = 'SELECT invId, invMake, invModel FROM inventory';
+	$stmt = $db->prepare($sql);
+	$stmt->execute();
+	$invInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$stmt->closeCursor();
+	return $invInfo;
 }
 ?>
