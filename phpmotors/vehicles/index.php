@@ -13,6 +13,8 @@ require_once '../model/vehicles-model.php';
 require_once '../library/functions.php';
 // Get the uploads model
 require_once '../model/uploads-model.php';
+require_once '../model/reviews-model.php';
+require_once '../model/accounts-model.php';
 
 // Get the array of classifications
 $classifications = getClassifications();
@@ -23,6 +25,7 @@ $addVehicle = "<a href='/phpmotors/vehicles/index.php?action=".urlencode('addVeh
 
 // Build a navigation bar using the $classifications array
 $navList = buildNav($classifications);
+
 
 // Get the value from the action name - value pair
 $action = filter_input(INPUT_POST, 'action');
@@ -210,6 +213,10 @@ switch ($action){
         $invId = filter_input(INPUT_GET, 'invId', FILTER_SANITIZE_NUMBER_INT);
         $vehicleInfo = getVehicleById($invId);
         $additionalImages = getAdditionalImages($invId);
+        $reviews = getInventoryReviews($invId);
+        $reviewList = buildReviews($reviews);
+        $reviewForm = buildReviewForm($invId);
+
         if(!isset($vehicleInfo)){
             $message = "<p class='notice'>Sorry, no $vehicleInfo[invMake] $vehicleInfo[invModel] could be found.</p>";
         } else {
@@ -217,7 +224,14 @@ switch ($action){
             if(isset($additionalImages)){
                 $images = buildAdditionalImages($additionalImages, $vehicleInfo);
             }
+            if(!isset($reviews)) {
+                $message = "<p>There are no reviews for this vehicle yet.</p>";
+            }
+            else {
+                $reviewList = buildReviews($reviews);
+            }
         }
+        
         
         include '../view/vehicle-detail.php';
         break;

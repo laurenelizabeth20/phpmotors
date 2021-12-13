@@ -80,6 +80,58 @@ function buildAdditionalImages($additionalImages, $vehicleInfo){
     return $dv;
 }
 
+function buildReviewForm($invId){
+    if (!$_SESSION['loggedin']) {
+        $reviewForm = '<p>Log in to leave a review.</p>';
+    }
+    else {
+        $reviewForm = '<form action="/phpmotors/reviews/index.php" method="post">';
+        $reviewForm .= '<label for="reviewText"> ';
+        $reviewForm .= substr($_SESSION['clientData']['clientFirstname'], 0, 1);
+        $reviewForm .= $_SESSION['clientData']['clientLastname'];
+        $reviewForm .= ' Review: </label><br>';
+        $reviewForm .= '<input type="text" name="reviewText" id="reviewText" required placeholder="Review" ';
+        if(isset($reviewText)){$reviewForm .= "value='$reviewText'";}
+        $reviewForm .= '><br>';
+        $reviewForm .= "<input type='hidden' name='submit' value='addReview'>
+            <button name='action' value='addReview'>Submit</button>
+            <input type='hidden' name='invId' value=";
+        if(isset($invId)){ 
+            $reviewForm .= $invId;} 
+        elseif(isset($invId)){ $reviewForm .= $invId; }
+        $reviewForm .= '>';
+        $reviewForm .= "<input type='hidden' name='clientId' value=";
+        if(isset($_SESSION['clientData']['clientId'])){ $reviewForm .= $_SESSION['clientData']['clientId'];} 
+                        elseif(isset($clientId)){ $reviewForm .= $clientId; }
+        $reviewForm .= "></form>";
+    }
+    return $reviewForm;
+}
+
+function buildUpdateReviewForm($reviewInfo){
+    $updateForm = '<form action="/phpmotors/reviews/index.php" method="post">';
+    $updateForm .= '<label for="User">User: </label><br>';
+    $updateForm .= "<input type='text' name='User' id='User' value='";
+    $updateForm .= substr($_SESSION['clientData']['clientFirstname'], 0, 1);
+    $updateForm .= $_SESSION['clientData']['clientLastname'];
+    $updateForm .= "' readonly><br>";
+    $updateForm .= "<label for='reviewDate'>Date Published: </label><br>";
+    $updateForm .= "<input type='text' name='reviewDate' id='reviewDate'";
+    if(isset($reviewInfo['reviewDate'])){
+        $updateForm .= "value='$reviewInfo[reviewDate]'";}
+    elseif(isset($reviewDate)) {
+        $updateForm .= "value='$reviewDate'"; }
+    $updateForm .= " readonly><br>";
+    $updateForm .= "<label for='reviewText'>Review: </label><br>";
+    $updateForm .= "<input type='text' name='reviewText' id='reviewText' required ";
+    if(isset($reviewInfo['reviewText'])){
+        $updateForm .= "value='$reviewInfo[reviewText]'";}
+    $updateForm .= "><br>";
+    $updateForm .= "<input type='hidden' name='submit' value='updateReview'>";
+    $updateForm .= "<button name='action' value='updateReview'>Update</button>";
+    $updateForm .= "<input type='hidden' name='reviewId' value='$reviewInfo[reviewId]'></form>";
+}
+
 /* * ********************************
 *  Functions for working with images
 * ********************************* */
@@ -115,6 +167,38 @@ function buildVehiclesSelect($vehicles) {
     }
     $prodList .= '</select>';
     return $prodList;
+}
+
+//Build reviews list
+function buildReviews($reviews) {
+    $reviewList = '<ul>';
+    foreach ($reviews as $review) {
+        $client = getClientById($review['clientId']);
+        $screenName = substr($client['clientFirstname'], 0, 1);
+        $screenName .= $client['clientLastname'];
+        $reviewList .= "<li><p> $screenName </p>";
+        $reviewList .= "<p>$review[reviewText]</p>";
+        $reviewList .= "<p>$review[reviewDate]</p></li>";
+    }
+    $reviewList .= "</ul>";
+    return $reviewList;
+}
+
+function buildClientReviews($reviews) {
+    $reviewList = '<ul>';
+    foreach ($reviews as $review) {
+        $client = getClientById($review['clientId']);
+        //$inv = getInvItemInfo($review['invId']);
+        $screenName = substr($client['clientFirstname'], 0, 1);
+        $screenName .= $client['clientLastname'];
+        $reviewList .= "<li><p> $screenName </p>";
+        $reviewList .= "<p>$review[reviewText]</p>";
+        $reviewList .= "<p>$review[reviewDate]</p></li>";
+        $reviewList .= "<a href='/phpmotors/reviews/index.php?action=".urlencode('editReview')."&reviewId=".urlencode($review['reviewId'])."' title='Add Review'>Edit</a><br>"; 
+        $reviewList .= "<a href='/phpmotors/reviews?action=".urlencode('deleteConfirmation')."&reviewId=".urlencode($review['reviewId'])."' title='Click to delete'>Delete</a>";
+    }
+    $reviewList .= "</ul>";
+    return $reviewList;
 }
 
 // Handles the file upload process and returns the path

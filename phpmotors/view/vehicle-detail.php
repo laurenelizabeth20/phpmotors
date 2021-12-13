@@ -16,18 +16,27 @@
             </nav>
             <main>
             <h1><?php echo $vehicleInfo['invMake'], " ", $vehicleInfo['invModel']; ?></h1>
+            <p>Reviews can be seen at the bottom of the page.</p>
             <?php if(isset($message)){
             echo $message; }
             ?>
             <div class="vehicleInfo">
             <?php if(isset($vehicleDetails)){
             echo $vehicleDetails;
-            } 
+            } ?>
             
+
+            <?php
             if(isset($additionalImages)){
                 echo $images;
                 } ?>
+
             </div>
+            <h2>Customer Reviews</h2>
+            <?php 
+                echo $reviewForm;
+                echo $reviewList;
+            ?>
             </main>
             <?php require_once '../footer.php';?>
         </div>
