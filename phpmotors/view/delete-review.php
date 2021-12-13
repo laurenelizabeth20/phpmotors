@@ -22,27 +22,22 @@
                 }
                 ?>
                 <form method="post" action="/phpmotors/reviews/">
-                    <fieldset>
-                        <label for="user">User</label>
-                        <input type="text" readonly name="user" id="user" value="<?php
+                    <label for="user">User</label>
+                    <input type="text" readonly name="user" id="user" value="<?php
                     echo substr($_SESSION['clientData']['clientFirstname'], 0, 1), $_SESSION['clientData']['clientLastname'];?>">
 
-                        <label for="reviewDate">Publish Date: </label>
-                        <input type="text" readonly name="reviewDate" id="reviewDate" <?php
+                    <label for="reviewDate">Publish Date: </label>
+                    <input type="text" readonly name="reviewDate" id="reviewDate" <?php
                     if(isset($reviewInfo['reviewDate'])) {echo "value='$reviewInfo[reviewDate]'"; }?>>
 
-                        <label for="reviewText">Review: </label>
-                        <textarea name="reviewText" readonly id="reviewText"><?php
-                    if(isset($reviewInfo['reviewText'])) {echo $reviewInfo['reviewText']; }
-                    ?></textarea>
-
-                    <input type="submit" class="regbtn" name="submit" value="Delete Review">
-
-                        <input type="hidden" name="action" value="deleteReview">
-                        <input type="hidden" name="reviewId" value="<?php if(isset($reviewInfo['reviewId'])){
+                    <label for="reviewText">Review: </label>
+                    <input type="text" name="reviewText" readonly id="reviewText" <?php
+                    if(isset($reviewInfo['reviewText'])) {echo "value='$reviewInfo[reviewText]'"; }
+                    ?>>
+                    <input type="hidden" name="action" value="deleteReview">
+                    <input type="hidden" name="reviewId" value="<?php if(isset($reviewInfo['reviewId'])){
                     echo $reviewInfo['reviewId'];} ?>">
-
-                    </fieldset>
+                    <button name="action" value="deleteReview">Delete</button>
                 </form>
             </main>
             <?php require_once '../footer.php';?>

@@ -85,10 +85,10 @@ switch ($action) {
         break;
 
     case 'deleteReview':
-        $reviewId = filter_input(INPUT_GET, 'reviewId', FILTER_SANITIZE_NUMBER_INT);
+        $reviewId = filter_input(INPUT_POST, 'reviewId', FILTER_SANITIZE_NUMBER_INT);
 
-        $deleteReview = deleteReview($reviewId);
-        if ($deleteReview === 1) {
+        $deleteResult = deleteReview($reviewId);
+        if ($deleteResult === 1) {
             $message = "<p class='notice'>Congratulations your review was successfully deleted.</p>";
             $_SESSION['message'] = $message;
             header('location: http://lvh.me/phpmotors/accounts/index.php?action=admin');
