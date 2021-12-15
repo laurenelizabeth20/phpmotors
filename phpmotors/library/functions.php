@@ -171,7 +171,7 @@ function buildVehiclesSelect($vehicles) {
 
 //Build reviews list
 function buildReviews($reviews) {
-    $reviewList = '<ul>';
+    $reviewList = '<ul class="reviews">';
     foreach ($reviews as $review) {
         $client = getClientById($review['clientId']);
         $screenName = substr($client['clientFirstname'], 0, 1);
@@ -188,7 +188,6 @@ function buildClientReviews($reviews) {
     $reviewList = '<ul>';
     foreach ($reviews as $review) {
         $client = getClientById($review['clientId']);
-        //$inv = getInvItemInfo($review['invId']);
         $screenName = substr($client['clientFirstname'], 0, 1);
         $screenName .= $client['clientLastname'];
         $reviewList .= "<li><p> $screenName </p>";

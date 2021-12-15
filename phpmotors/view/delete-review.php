@@ -24,11 +24,11 @@
                 <form method="post" action="/phpmotors/reviews/">
                     <label for="user">User</label>
                     <input type="text" readonly name="user" id="user" value="<?php
-                    echo substr($_SESSION['clientData']['clientFirstname'], 0, 1), $_SESSION['clientData']['clientLastname'];?>">
+                    echo substr($_SESSION['clientData']['clientFirstname'], 0, 1), $_SESSION['clientData']['clientLastname'];?>"><br>
 
                     <label for="reviewDate">Publish Date: </label>
                     <input type="text" readonly name="reviewDate" id="reviewDate" <?php
-                    if(isset($reviewInfo['reviewDate'])) {echo "value='$reviewInfo[reviewDate]'"; }?>>
+                    if(isset($reviewInfo['reviewDate'])) {echo "value='$reviewInfo[reviewDate]'"; }?>><br>
 
                     <label for="reviewText">Review: </label>
                     <input type="text" name="reviewText" readonly id="reviewText" <?php

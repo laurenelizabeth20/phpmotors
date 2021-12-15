@@ -123,7 +123,7 @@ switch ($action){
             // Store the array into the session
             $_SESSION['clientData'] = $clientData;
             // Send them to the admin view
-            include '../view/admin.php';
+            header('location: http://lvh.me/phpmotors/accounts/index.php?action=admin');
             exit;
             break;
 

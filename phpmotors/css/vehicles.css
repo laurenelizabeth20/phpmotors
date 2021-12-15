@@ -60,7 +60,7 @@ h1, h2 {
 }
 
 form, .vehicleLinks, .vehicleLinks a:visited {
-    width:50%;
+    width:70%;
 	margin: 0 auto;
 	padding: 12px 25px;
     border: 3px solid #868686;
@@ -69,6 +69,10 @@ form, .vehicleLinks, .vehicleLinks a:visited {
     color: white;
     line-height: 25px;
     font-family: 'Orbitron', sans-serif;
+}
+
+input {
+	width: 95%;
 }
 
 form a {
@@ -140,6 +144,16 @@ footer {
 #additionalImages {
     list-style-type: none;
     width: 200px;
+}
+
+.reviews li {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: bold;
+    list-style: none;
+    border: 2px black solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
 }
 
 @media screen and (min-width: 740px) {
@@ -236,7 +250,7 @@ footer {
         width: 100%;
     }
     
-    .vehicleInfo p, .vehicleInfo span{
+    .vehicleInfo p, .vehicleInfo span, li{
         grid-column: 3;
         font-weight: 300;
     }

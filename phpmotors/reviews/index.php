@@ -30,7 +30,8 @@ switch ($action) {
 
         // Check for missing data
         if(empty($reviewText)){
-            $message = '<p>Please provide review.</p>';
+            $_SESSION['message'] = '<p>Please provide review.</p>';
+            header('location: http://lvh.me/phpmotors/vehicles/?action=vehicleInfo&invId=' . $invId);
             exit; 
         }
 
@@ -38,10 +39,12 @@ switch ($action) {
 
         // Check and report the result
         if($addReview === 1){
-            $message = "<p>Thanks for reviewing.</p>";
+            $_SESSION['message'] = "<p>Thanks for reviewing.</p>";
+            header('location: http://lvh.me/phpmotors/vehicles/?action=vehicleInfo&invId=' . $invId);
             exit;
         } else {
-            $message = "<p>Sorry adding the review failed. Please try again.</p>";
+            $_SESSION['message'] = "<p>Sorry adding the review failed. Please try again.</p>";
+            header('location: http://lvh.me/phpmotors/vehicles/?action=vehicleInfo&invId=' . $invId);
             exit;
         }
         break;
@@ -106,7 +109,7 @@ switch ($action) {
             include '../view/admin.php';
             exit;
         }
-        header('location: /phpmotors/');
+        header('location: http://lvh.me/phpmotors/');
         break;
 }
 ?>

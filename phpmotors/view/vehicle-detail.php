@@ -34,6 +34,9 @@
             </div>
             <h2>Customer Reviews</h2>
             <?php 
+                if(isset($_SESSION['message'])){
+                    echo $_SESSION['message'];
+                }
                 echo $reviewForm;
                 echo $reviewList;
             ?>
